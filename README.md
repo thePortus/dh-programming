@@ -7,9 +7,9 @@ Instructor of Ancient History and Digital Humanities, [University of South Flori
 
 ```python
 # clone repo
-git clone https://github.com/thePortus/dh-examples.git
+git clone https://github.com/thePortus/dh-programming.git
 # move inside repo
-cd dh-examples
+cd dh-programming
 # install dependencies
 pip install -r requirements.txt
 # launch notebook
