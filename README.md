@@ -15,3 +15,16 @@ pip install -r requirements.txt
 # launch notebook
 jupyter notebook
 ```
+
+If you want to make a copy on your account, first make an empty repository on GitHub, then...
+
+```python
+# remove the original repo url
+git remote remove origin
+# add your repo url in, substituting username and repo name
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+# set the master branch to pull upstream from the remote
+git remote -u origin master
+# push the repo to your emp
+git push
+```
