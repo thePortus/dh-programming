@@ -105,22 +105,30 @@ class TextFile(Path):
         PlainTextFile('a_path.txt').save(text, options={ 'overwrite': True })
     """
 
-    def load(self,  options={'encoding': 'utf-8'}):
+    def load(self,  options={}):
         """
         Opens file and returns contents as a single string
         """
+        # set option defaults
+        if 'encoding' not in options:
+            options['encoding'] = 'utf-8'
         super(self.__class__, self).load(options)
-        if not self.is_file():
+        if not self.is_file:
             raise Exception('Item is not a file')
         file_data = ''
         with open(self.data, 'r+', encoding=options['encoding']) as read_file:
             file_data = read_file.read()
         return file_data
 
-    def save(self, data, options={'encoding': 'utf-8', 'overwrite': 'false'}):
+    def save(self, data, options={}):
         """
         Saves string data to file, won't overwrite unless option is flagged
         """
+        # set option defaults
+        if 'encoding' not in options:
+            options['encoding'] = 'utf-8'
+        if 'overwrite' not in options:
+            options['overwite'] = False
         super(self.__class__, self).save(options)
         with open(self.data, 'w+', encoding=options['encoding']) as write_file:
             write_file.write(data)
@@ -132,22 +140,30 @@ class TextFolder(Path):
     Can load or save a folder of plaintext files as a list of strings.
     """
 
-    def load(self, options={'encoding': 'utf-8'}):
+    def load(self, options={}):
         """
         Load all .txt (or other types) in a folder as list of strings
         """
+        # set option defaults
+        if 'encoding' not in options:
+            options['encoding'] = 'utf-8'
         super(self.__class__, self).load(options)
-        if not self.is_folder():
+        if not self.is_folder:
             raise Exception('Item is not a folder')
         # TODO Add loading here
         pass
 
-    def save(self, data, options={'encoding': 'utf-8', 'overwrite': False}):
+    def save(self, data, options={}):
         """
         Save list of strings as .txt, will be named sequentially (1.txt...)
         unless a second list of strings with equal length is passed containing
         output filenames
         """
+        # set option defaults
+        if 'encoding' not in options:
+            options['encoding'] = 'utf-8'
+        if 'overwrite' not in options:
+            options['overwite'] = False
         super(self.__class__, self).save(options)
         # TODO add saving here
         pass
@@ -160,7 +176,7 @@ class CSVFile(Path):
     lists of dictionaries.
     """
 
-    def load(self, options={'encoding': 'utf-8'}):
+    def load(self, options={}):
         """
         Load csv as list of dictionaries.
 
@@ -169,20 +185,22 @@ class CSVFile(Path):
             for data_row in loaded_data:
                 print(data_row)
         """
+        # set option defaults
+        if 'encoding' not in options:
+            options['encoding'] = 'utf-8'
         super(self.__class__, self).load(options)
         if not self.is_file:
             raise Exception('Item is not a file')
         data_rows = []
-        with open(self.data, 'r+', encoding=options['encoding']) as csv_file:
-            csv_reader = csv.DictReader(csv_file, newline='')
+        with open(
+            self.data, 'r+', encoding=options['encoding'], newline=''
+        ) as csv_file:
+            csv_reader = csv.DictReader(csv_file)
             for csv_row in csv_reader:
                 data_rows.append(csv_row)
         return data_rows
 
-    def save(
-        self, data, fieldnames,
-        options={'encoding': 'utf-8', 'overwrite': 'false'}
-    ):
+    def save(self, data, fieldnames, options={}):
         """
         Save a list of dictionaries to a .csv file. You must specify
         the column headers (fieldnames) with a list of strings. Returns True
@@ -196,8 +214,15 @@ class CSVFile(Path):
             fieldnames = ['id', 'name']
             CSVFile('a_path.csv').save(sample_data, fieldnames)
         """
+        # set option defaults
+        if 'encoding' not in options:
+            options['encoding'] = 'utf-8'
+        if 'overwrite' not in options:
+            options['overwite'] = False
         super(self.__class__, self).save(options)
-        with open(self.data, 'w+', encoding=options['encoding']) as csv_file:
+        with open(
+            self.data, 'w+', encoding=options['encoding'], newline=''
+        ) as csv_file:
             csv_writer = csv.DictWriter(
                 csv_file, fieldnames=fieldnames, newline=''
             )

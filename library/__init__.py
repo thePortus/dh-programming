@@ -9,5 +9,5 @@ are imported for easy access at the module level.
 
 """
 
-from . import web
-from . import files
+from .web import WebPage
+from .files import TextFile, CSVFile
