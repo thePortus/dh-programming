@@ -16,7 +16,7 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
-If you want to make a copy on your account, first make an empty repository on GitHub, then...
+If you want to make a copy on your account, first make an empty repository on GitHub...
 
 ```python
 # remove the original repo url
